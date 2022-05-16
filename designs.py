@@ -233,3 +233,12 @@ def straight_listing(surface, color1, color2, item1, item2, start_of_2_pos, font
     for n in item1:
         blit_text(surface, n, font, color1, [clear_pos, y], 2)
         y += a.height * 1.3
+
+def scroll_line(surface, color, x, whole_length, surface_height, y, surface_start, dir = 1):
+    if whole_length > 0:
+        size = surface_height / (whole_length / surface_height)
+        height = surface_start - (y / (whole_length / surface_height))
+
+        if size < surface_height:
+            pygame.draw.line(surface, color, (x, height),
+                             (x, height + (size * dir)), 6)

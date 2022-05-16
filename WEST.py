@@ -27,6 +27,7 @@ CLOCK = pygame.time.Clock()
 SURFACE.fill((200, 200, 200))
 #gradientRect_w(SURFACE, (0, 0, 10), (83, 132, 255),
                      #Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+
 image = pygame.image.load(
     "images/WEST_logo.png").convert_alpha()
 image = pygame.transform.rotozoom(image, 0, 0.98)
@@ -41,13 +42,15 @@ rect = image.get_rect()
 
 rect.center = [SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 270]
 SURFACE.blit(image, rect)
+
 pygame.display.update()
 time.sleep(3)
-
 
 RUNNING = True
 
 DELTA_TIME = 53
+CHAT_SURF = pygame.Surface([SCREEN_WIDTH - 300, SCREEN_HEIGHT])
+WRITE_SURF = pygame.Surface([SCREEN_WIDTH, 100])
 
 while RUNNING:
     big_event = pygame.event.get()
@@ -58,9 +61,13 @@ while RUNNING:
             if event.key == K_ESCAPE:
                 RUNNING = False
 
-    SURFACE.fill((200, 200, 200))
-    talk(SURFACE, (0, 180, 30), big_event)
+    SURFACE.fill((150, 170, 150))
+    CHAT_SURF.fill((200, 200, 200))
+    WRITE_SURF.fill((200, 200, 200))
     
+    talk(CHAT_SURF, (0, 180, 30), big_event, SURFACE)
+    SURFACE.blit(CHAT_SURF, [300, 0])
+
     pygame.display.update()
     CLOCK.tick(DELTA_TIME)
 

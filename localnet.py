@@ -34,7 +34,7 @@ def receive():
                 # soc.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                 soc.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
-                soc.bind(("192.168.1.195", BROADCATS_PORT))
+                soc.bind(("", BROADCATS_PORT))
                 while True:
                     msg, _ = soc.recvfrom(65536)
                     RECEIVED_DATA.append(json.loads(msg.decode()))
