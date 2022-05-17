@@ -10,7 +10,7 @@ from helpers import *
 from arc import *
 from designs import *
 from colors_and_images import *
-from localnet import *
+from servernet import *
 
 pygame.init()
 
