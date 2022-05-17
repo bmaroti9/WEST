@@ -11,6 +11,7 @@ from gradient import *
 from arc import *
 from colors_and_images import *
 from talking import *
+from servernet import *
 
 pygame.init()
 
@@ -27,6 +28,9 @@ CLOCK = pygame.time.Clock()
 SURFACE.fill((200, 200, 200))
 #gradientRect_w(SURFACE, (0, 0, 10), (83, 132, 255),
                      #Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+
+receive()
+send('connected sucsesfully')
 
 image = pygame.image.load(
     "images/WEST_logo.png").convert_alpha()
@@ -45,6 +49,9 @@ SURFACE.blit(image, rect)
 
 pygame.display.update()
 time.sleep(3)
+
+receive()
+send('connected sucsesfully')
 
 RUNNING = True
 
