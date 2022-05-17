@@ -1,10 +1,15 @@
 import json
-import socket
 import threading
+import zmq
 
-BROADCATS_PORT = 17739
-RECEIVER_THREAD = None
+TOPIC = "WEST"
+CONTEXT = zmq.Context()
+
+SENDER_ADDR = "tcp://52.6.204.171:1978"
 SENDER_SOCKET = None
+
+RECEIVER_ADDR = "tcp://52.6.204.171:1979"
+RECEIVER_THREAD = None
 RECEIVED_DATA = []
 
 
@@ -12,14 +17,10 @@ def send(msg):
     global SENDER_SOCKET
     if SENDER_SOCKET is None:
         print("creating sender socket")
-        soc = socket.socket(
-            socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-        soc.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        soc.settimeout(0.1)
-        SENDER_SOCKET = soc
+        SENDER_SOCKET = CONTEXT.socket(zmq.PUB)
+        SENDER_SOCKET.connect(SENDER_ADDR)
 
-    SENDER_SOCKET.sendto(json.dumps(msg).encode(),
-                         ("<broadcast>", BROADCATS_PORT))
+    SENDER_SOCKET.send((TOPIC + json.dumps(msg)).encode())
 
 
 def receive():
@@ -27,15 +28,16 @@ def receive():
     if RECEIVER_THREAD is None:
         def worker():
             try:
-                print("starting receiver socket")
-                soc = socket.socket(
-                    socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-                soc.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+                print("creating receiver socket")
+                soc = CONTEXT.socket(zmq.SUB)
+                soc.setsockopt(zmq.SUBSCRIBE, TOPIC.encode())
+                soc.connect(RECEIVER_ADDR)
 
-                soc.bind(("0.0.0.0", BROADCATS_PORT))
                 while True:
-                    msg, _ = soc.recvfrom(65536)
-                    RECEIVED_DATA.append(json.loads(msg.decode()))
+                    msg = soc.recv().decode()
+                    assert msg.startswith(TOPIC)
+                    msg = json.loads(msg[len(TOPIC):])
+                    RECEIVED_DATA.append(msg)
 
             finally:
                 print("closing receiver socket")
