@@ -25,13 +25,13 @@ SURFACE = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 # .N)
 CLOCK = pygame.time.Clock()
 
-SURFACE.fill((200, 200, 200))
+SURFACE.fill((0, 100, 40))
 #gradientRect_w(SURFACE, (0, 0, 10), (83, 132, 255),
                      #Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
 
 receive()
 send('connected sucsesfully')
-
+'''
 image = pygame.image.load(
     "images/WEST_logo.png").convert_alpha()
 image = pygame.transform.rotozoom(image, 0, 0.98)
@@ -46,7 +46,7 @@ rect = image.get_rect()
 
 rect.center = [SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 270]
 SURFACE.blit(image, rect)
-
+'''
 pygame.display.update()
 time.sleep(3)
 

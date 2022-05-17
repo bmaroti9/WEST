@@ -104,7 +104,7 @@ def talk(surface, theme_color, big_event, non_scrolling_surf):
         else:
             c = (150, 150, 150)
             x = 110
-            blit_pixelart(surface, [40, surface.get_height() - hihi[0] - y], 7)
+            #blit_pixelart(surface, [40, surface.get_height() - hihi[0] - y], 7)
         
         pygame.draw.rect(surface, c,
                          ((x, surface.get_height() - hihi[0] - y), (hihi[1], hihi[0] + 14)), 0, 20)
