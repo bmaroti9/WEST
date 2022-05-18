@@ -35,7 +35,7 @@ def talk(surface, theme_color, big_event, non_scrolling_surf):
     pygame.draw.rect(surface, theme_color, pos, 2, 20)
 
     if check_released(-3):
-        SEARCH = mouse_in_rect(pos, [300, 0])
+        SEARCH = mouse_in_rect(pos, [0, 0])
 
     if pygame.time.get_ticks() % 100 == 1:
         recived = receive()
@@ -103,11 +103,11 @@ def talk(surface, theme_color, big_event, non_scrolling_surf):
             x = 390
         else:
             c = (150, 150, 150)
-            x = 110
+            x = 460
             #blit_pixelart(surface, [40, surface.get_height() - hihi[0] - y], 7)
         
         pygame.draw.rect(surface, c,
-                         ((x, surface.get_height() - hihi[0] - y), (hihi[1], hihi[0] + 14)), 0, 20)
+                         ((x, surface.get_height() - hihi[0] - y), (hihi[1] + 20, hihi[0] + 14)), 0, 20)
 
         textbox(surface, n[0], 490, [
                 x, surface.get_height() - hihi[0] - y + 6], FONT1, (80, 80, 80))

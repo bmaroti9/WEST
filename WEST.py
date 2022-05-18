@@ -11,7 +11,7 @@ from gradient import *
 from arc import *
 from colors_and_images import *
 from talking import *
-from servernet import *
+from localnet import *
 
 pygame.init()
 
@@ -56,7 +56,7 @@ send('connected sucsesfully')
 RUNNING = True
 
 DELTA_TIME = 53
-CHAT_SURF = pygame.Surface([SCREEN_WIDTH - 300, SCREEN_HEIGHT])
+CHAT_SURF = pygame.Surface([SCREEN_WIDTH, SCREEN_HEIGHT])
 WRITE_SURF = pygame.Surface([SCREEN_WIDTH, 100])
 
 while RUNNING:
@@ -73,7 +73,7 @@ while RUNNING:
     WRITE_SURF.fill((200, 200, 200))
     
     talk(CHAT_SURF, (0, 180, 30), big_event, SURFACE)
-    SURFACE.blit(CHAT_SURF, [300, 0])
+    SURFACE.blit(CHAT_SURF, [0, 0])
 
     pygame.display.update()
     CLOCK.tick(DELTA_TIME)
